@@ -1,4 +1,4 @@
-~/.vim/bundle/
+~/.vim/bundle/*
 !~/.vim/bundle/vim-snippets/UltiSnips/
 .DS_Store
 */.DS_Store
