@@ -1,5 +1,4 @@
 bundle/*
-!bundle/vim-snippets/UltiSnips
 .DS_Store
 */.DS_Store
 *.bak
