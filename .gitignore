@@ -1,5 +1,4 @@
-~/.vim/bundle/*
-!~/.vim/bundle/vim-snippets/
+bundle/*
 .DS_Store
 */.DS_Store
 *.bak
