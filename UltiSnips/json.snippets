@@ -1,0 +1,79 @@
+priority -50
+
+snippet s "String" b
+"${1:key}": "${0:value}",
+endsnippet
+
+snippet n "Number" b
+"${1:key}": ${0:value},
+endsnippet
+
+snippet a "Array" b
+[
+	${VISUAL}$0
+],
+endsnippet
+
+snippet na "Named array" b
+"${1:key}": [
+	${VISUAL}$0
+],
+endsnippet
+
+snippet o "Object" b
+{
+	${VISUAL}$0
+},
+endsnippet
+
+snippet no "Named object" b
+"${1:key}": {
+	${VISUAL}$0
+},
+endsnippet
+
+snippet null "Null" b
+"${0:key}": null,
+endsnippet
+
+
+global !p
+def compB(t, opts):
+	if t:
+		opts = [m[len(t):] for m in opts if m.startswith(t)]
+	if len(opts) == 1:
+		return opts[0]
+	return "(" + '|'.join(opts) + ')'
+endglobal
+
+snippet b "Bool" b
+"${1:key}": $2`!p snip.rv=compB(t[2], ['true', 'false'])`,
+endsnippet
+
+snippet ss-s "shadowsocks-server" b
+{
+"server": ${1:"206.189.174.152"},
+"local_address": "127.0.0.1",
+"local_port": 1080, 
+"port_password":
+{
+${2:"443"}: ${3:"shadowpassword1"},
+${4:"1920"}:${5:"shadowpassword2"}
+},
+"timeout": 600,
+"method": ${6:"aes-256-cfb"},
+"fast_open": true
+}$0
+endsnippet
+
+snippet ss-c "shadowsocks-client" b
+{
+"server":${1:"206.189.174.152"},
+"local_address":"127.0.0.1",
+"local_port":1080,
+"server_port":${2:443},
+"password":${3:"shadowpassword1"},
+"timeout":300,
+"method":${4:"aes-256-cfb"}
+}$0
+endsnippet
