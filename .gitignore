@@ -1,5 +1,5 @@
 ~/.vim/bundle/*
-!~/.vim/bundle/vim-snippets/UltiSnips/
+!~/.vim/bundle/vim-snippets/
 .DS_Store
 */.DS_Store
 *.bak
