@@ -4,4 +4,3 @@
 *.bk
 *.swp
 bundle/*
-!bundle/vim-snippets/UltiSnips/**
