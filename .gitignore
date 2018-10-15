@@ -3,5 +3,5 @@
 *.bak
 *.bk
 *.swp
-bundle/
-!bundle/vim-snippets/UltiSnips/
+bundle/*
+!bundle/vim-snippets/UltiSnips/**
