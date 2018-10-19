@@ -195,7 +195,7 @@ filetype on         " 开启文件类型侦测
 autocmd BufWritePost $MYVIMRC source $MYVIMRC   " 让配置变更立即生效
 set laststatus=2    " 总是显示状态栏
 "set nowrap          " 禁止代码折行
-set mouse=a         " 设置鼠标可用
+"set mouse=a         " 设置鼠标可用
 set clipboard=unnamedplus   " 设置系统剪贴板
 syntax enable       " 开启语法高亮功能
 syntax on           " 允许用指定语法高亮配色方案替换默认方案
@@ -283,9 +283,11 @@ nnoremap <silent>[<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>
 nnoremap <silent>]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 
 " vim命令记录
-"ci'、ci"、ci(、ci[、ci{、ci< - 分别更改这些配对标点符号中的文本内容
+"ci'、ci"、ci(、ci[、ci{、ci< - 分别更改这些配对标点符号中的文本内容,并且进入插入模式
 "di'、di"、di(或dib、di[、di{或diB、di< - 分别删除这些配对标点符号中的文本内容
 "yi'、yi"、yi(、yi[、yi{、yi< - 分别复制这些配对标点符号中的文本内容
 "vi'、vi"、vi(、vi[、vi{、vi< - 分别选中这些配对标点符号中的文本内容
 "da(连括号与括号内的文字一起删除
 ":bd关闭缓冲区文件
+"NERDTree按m会弹出对话框,里面有选项可以新建文件
+"~改变字母大小写
