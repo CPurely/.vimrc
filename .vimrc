@@ -291,3 +291,5 @@ nnoremap <silent>]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 ":bd关闭缓冲区文件
 "NERDTree按m会弹出对话框,里面有选项可以新建文件
 "~改变字母大小写
+"ctrl+s会锁住vim,ctrl+q可以解锁
+"ctrl+ -缩小字体, ctrl+0还原

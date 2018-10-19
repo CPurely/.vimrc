@@ -33,7 +33,7 @@ endsnippet
 
 snippet head "hugo blog head" b 
 ---
-title: ${1:title}
+title: ${1:`!p snip.rv = snip.basename`}
 date: ${2:`date +%Y-%m-%d`}
 tags: $3
 ---
