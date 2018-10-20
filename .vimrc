@@ -44,8 +44,12 @@ let NERDTreeWinSize=35
 let NERDTreeIgnore=['\.pyc','\~$','\.swp']
 " 快捷定位当前文件在nerdtree中
 nmap fn :NERDTreeFind<CR>
-" 打开文件vim自动进入该文件的目录
-autocmd BufEnter * lcd %:p:h
+" 打开文件vim自动进入该文件的目录,并且考虑打开terminal的情况
+"autocmd BufEnter * lcd %:p:h
+augroup AutoChdir
+  autocmd!
+  autocmd BufEnter * if &buftype !=# 'terminal' | lchdir %:p:h | endif
+augroup END
 
 " indent_guid配置
 "let g:indent_guides_enable_on_vim_startup = 0    " 添加行，vim启动时启用
@@ -281,6 +285,13 @@ vnoremap dd "_dd
 " vim快速增加空行,并且支持数字操作,比如5]<space>
 nnoremap <silent>[<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>
 nnoremap <silent>]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
+" 快速打开terminal
+nnoremap <leader>t :vertica terminal<cr>
+" 调整窗口(buffer)尺寸-+5
+nnoremap <C-left> :vertical resize +5<cr>
+nnoremap <C-down> :resize -5<cr>
+nnoremap <C-up> :resize +5<cr>
+nnoremap <C-right> :vertical resize -5<cr>
 
 " vim命令记录
 "ci'、ci"、ci(、ci[、ci{、ci< - 分别更改这些配对标点符号中的文本内容,并且进入插入模式
