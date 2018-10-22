@@ -7,7 +7,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'https://github.com/scrooloose/nerdtree.git'
 Plugin 'https://github.com/vim-airline/vim-airline.git'
 Plugin 'https://github.com/vim-airline/vim-airline-themes.git'
-Plugin 'https://github.com/scrooloose/nerdcommenter.git'   " <leader>cc 注释当前行 <leader>cy 注释并复制 <leader>cs 优美的注释 <leader>cu 取消注释
+Plugin 'https://github.com/scrooloose/nerdcommenter.git'   " <leader>cc 注释当前行 <leader>cy 注释并复制 <leader>cs 优美的注释 <leader>cu 取消注释<leader>cA在行最后添加注释
 Plugin 'vim-scripts/indentpython.vim'
 "Plugin 'https://github.com/nathanaelkane/vim-indent-guides.git'
 Plugin 'https://github.com/Yggdroot/indentLine.git'
@@ -25,6 +25,8 @@ Plugin 'majutsushi/tagbar'      " 需要先安装ctags apt-get install ctags
 Plugin 'https://github.com/matze/vim-move.git'
 Plugin 'SirVer/ultisnips'        " Track the engine.
 Plugin 'honza/vim-snippets'      " Snippets are separated from the engine. Add this if you want them:
+Plugin 'wesQ3/vim-windowswap'    " 交换窗口之间的位置,按<leader>ww在当前窗口,然后移动到想到交换位置的窗口再按<leader>ww即可
+Plugin 'terryma/vim-multiple-cursors'  " 多光标操作
 " ADD YOUR PLUGIN
 call vundle#end()
 filetype plugin indent on
@@ -187,8 +189,21 @@ let g:UltiSnipsExpandTrigger="<leader><tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
+"vim-multiple-cursors配置
+let g:multi_cursor_use_default_mapping=0
+" Default mapping
+let g:multi_cursor_start_word_key      = '<C-n>'     " 选中当前光标下字符, 按c开始修改
+"let g:multi_cursor_select_all_word_key = '<A-n>'    " 全选匹配的字符
+"let g:multi_cursor_start_key           = 'g<C-n>'
+"let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-n>'     " 选中下一个字符
+let g:multi_cursor_prev_key            = '<C-p>'     " 返回上一个字符
+let g:multi_cursor_skip_key            = '<C-x>'     " 跳过当前选中, 选中下一个
+let g:multi_cursor_quit_key            = '<Esc>'     " 退出
+
 " 当不编辑主文件时自动退出vim
 autocmd BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(winbufnr(v:val), "&bt"))')) | qa! | endif
+set textwidth=150    "vim自动换行(超过这个数值的行,向其中插入字符时会自动加上换行符)
 set number          " Show line numbers.
 set softtabstop=4   " 设定 tab 长度为 4
 set tabstop=4       " 设定 tab 长度为 4
@@ -289,18 +304,29 @@ nnoremap <silent>]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 nnoremap <leader>t :vertica terminal<cr>
 " 调整窗口(buffer)尺寸-+5
 nnoremap <C-left> :vertical resize +5<cr>
-nnoremap <C-down> :resize -5<cr>
-nnoremap <C-up> :resize +5<cr>
 nnoremap <C-right> :vertical resize -5<cr>
+nnoremap <C-up> :resize +5<cr>
+nnoremap <C-down> :resize -5<cr>
 
 " vim命令记录
-"ci'、ci"、ci(、ci[、ci{、ci< - 分别更改这些配对标点符号中的文本内容,并且进入插入模式
-"di'、di"、di(或dib、di[、di{或diB、di< - 分别删除这些配对标点符号中的文本内容
-"yi'、yi"、yi(、yi[、yi{、yi< - 分别复制这些配对标点符号中的文本内容
-"vi'、vi"、vi(、vi[、vi{、vi< - 分别选中这些配对标点符号中的文本内容
-"da(连括号与括号内的文字一起删除
-":bd关闭缓冲区文件
-"NERDTree按m会弹出对话框,里面有选项可以新建文件
-"~改变字母大小写
-"ctrl+s会锁住vim,ctrl+q可以解锁
-"ctrl+ -缩小字体, ctrl+0还原
+" ci'、ci"、ci(、ci[、ci{、ci< - 分别更改这些配对标点符号中的文本内容,并且进入插入模式
+" di'、di"、di(或dib、di[、di{或diB、di< - 分别删除这些配对标点符号中的文本内容
+" yi'、yi"、yi(、yi[、yi{、yi< - 分别复制这些配对标点符号中的文本内容
+" vi'、vi"、vi(、vi[、vi{、vi< - 分别选中这些配对标点符号中的文本内容
+" da(连括号与括号内的文字一起删除
+" :bd关闭缓冲区文件
+" NERDTree按m会弹出对话框,里面有选项可以新建文件
+" ~改变字母大小写
+" <ctrl-s>会锁住vim,ctrl+q可以解锁
+" ctrl-缩小字体, ctrl+0还原
+" 命令:vert sb[buffernumber]可以让两个buffer垂直分屏显示,:sb[buffernumber]可以让两个buffer水平分屏显示
+" <ctrl-w>c可以关闭当前window但是不关闭buffer
+" 命令:ls可以列出当前buffer和buffernumber
+" <ctrl-w>=,让所有窗口尺寸相等
+" <ctrl-w>v,给当前文件再开一个垂直分屏
+" <ctrl-w>S,给当前文件打开水平分屏
+" <ctrl-w>r,,交换窗口位置(两个窗口时比较可控,三个窗口会循环窗口位置,用windowswap插件可控一点)
+" 命令:browse oldfiles(:bro ol)可以打开最近打开的文件列表,按q或者esc之后输入文件的数字即可打开文件
+" 命令:ol则是浏览最近打开的文件列表,进去之后使用:e #<[filenumber]打开文件
+" 可视模式下按o可以在选区顶端位置切换
+" <ctrl-o>返回上次光标位置
