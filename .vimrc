@@ -71,6 +71,11 @@ let g:indentLine_char = '|'             " 设置指示符号
 let g:airline_theme='bubblegum'
 let g:airline#extensions#tabline#enabled = 1
 
+" nerdcommenter配置
+let g:NERDSpaceDelims = 0        " 给注释符号后面添加空格
+let g:NERDCompactSexyComs = 1    " 让注释更紧凑
+let g:NERDDefaultAlign = 'left'  " 让注释不会随着代码缩进
+
 " YouCompleteMe配置
 " 完成补全之后preview窗口自动消失
 let g:SimpyIFold_docstring_preview=1
