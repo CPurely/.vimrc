@@ -63,9 +63,9 @@ augroup END
 let g:indentLine_enabled = 1            " 设置启动缩进指示
 let g:indentLine_noConcealCursor = 1    " 解决光标位置不正确
 let g:indentLine_color_term = 3         " 更换缩进指示颜色
-let g:indentLine_char = '|'             " 设置指示符号
-"let g:indentLine_conceallevel  = &conceallevel
-"let g:indentLine_concealcursor = &concealcursor
+let g:indentLine_char = '|'             " 设置指示符号,不正确的指示符号会造成光标位置不正确
+"let g:indentLine_conceallevel  = &conceallevel    " 让插件不隐藏链接,但是插件会失效
+let g:indentLine_concealcursor = &concealcursor   " 让插件光标进入隐藏链接时显示隐藏
 
 " airline和其themes配置
 let g:airline_theme='bubblegum'
@@ -208,7 +208,7 @@ let g:multi_cursor_quit_key            = '<Esc>'     " 退出
 
 " 当不编辑主文件时自动退出vim
 autocmd BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(winbufnr(v:val), "&bt"))')) | qa! | endif
-set textwidth=150    "vim自动换行(超过这个数值的行,向其中插入字符时会自动加上换行符)
+set textwidth=250    "vim自动换行(超过这个数值的行,向其中插入字符时会自动加上换行符)
 set number          " Show line numbers.
 set softtabstop=4   " 设定 tab 长度为 4
 set tabstop=4       " 设定 tab 长度为 4
