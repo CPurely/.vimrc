@@ -122,6 +122,8 @@ set background=dark    " Setting dark mode
 
 " leaderF配置
 let g:Lf_WorkingDirectoryMode = 'a'      " 设置目录为当前文件所在目录,只对终端下打开文件
+"<C-J>   move the cursor downward in the result window
+"<C-K>   move the cursor upward in the result window
 
 " ale配置
 " ale settings
@@ -308,10 +310,10 @@ nnoremap <silent>]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 " 快速打开terminal
 nnoremap <leader>t :vertica terminal<cr>
 " 调整窗口(buffer)尺寸-+5
-nnoremap <C-left> :vertical resize +5<cr>
-nnoremap <C-right> :vertical resize -5<cr>
-nnoremap <C-up> :resize +5<cr>
-nnoremap <C-down> :resize -5<cr>
+nnoremap <space><left> :vertical resize +5<cr>
+nnoremap <space><right> :vertical resize -5<cr>
+nnoremap <space><up> :resize +5<cr>
+nnoremap <space><down> :resize -5<cr>
 
 " vim命令记录
 " ci'、ci"、ci(、ci[、ci{、ci< - 分别更改这些配对标点符号中的文本内容,并且进入插入模式
