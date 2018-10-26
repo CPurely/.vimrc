@@ -115,8 +115,6 @@ let g:rainbow_active = 1
 " vim-colorschemes配置
 colorscheme gruvbox
 " 设置vim为透明,不知道为什么没有效果
-"hi! Normal ctermbg=NONE guibg=NONE
-"hi! NonText ctermbg=NONE guibg=NONE
 let g:gruvbox_italic=1
 set background=dark    " Setting dark mode
 
@@ -314,6 +312,10 @@ nnoremap <space><left> :vertical resize +5<cr>
 nnoremap <space><right> :vertical resize -5<cr>
 nnoremap <space><up> :resize +5<cr>
 nnoremap <space><down> :resize -5<cr>
+
+" 设置vim半透明,这行配置要放到后面才能生效,之前是因为放到前面被其他命令覆盖了
+hi! Normal ctermbg=NONE guibg=NONE
+hi! NonText ctermbg=NONE guibg=NONE
 
 " vim命令记录
 " ci'、ci"、ci(、ci[、ci{、ci< - 分别更改这些配对标点符号中的文本内容,并且进入插入模式
