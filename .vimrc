@@ -313,10 +313,17 @@ nnoremap <space><left> :vertical resize +5<cr>
 nnoremap <space><right> :vertical resize -5<cr>
 nnoremap <space><up> :resize +5<cr>
 nnoremap <space><down> :resize -5<cr>
-
 " 设置vim半透明,这行配置要放到后面才能生效,之前是因为放到前面被其他命令覆盖了
 hi! Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE
+" vim快速移除文件行尾无用的空格
+fun! TrimWhitespace()
+        let l:save = winsaveview()
+            keeppatterns %s/\s\+$//e
+                call winrestview(l:save)
+endfun
+command! TrimWhitespace call TrimWhitespace()
+noremap <Leader>w :call TrimWhitespace()<CR>
 
 " vim命令记录
 " ci'、ci"、ci(、ci[、ci{、ci< - 分别更改这些配对标点符号中的文本内容,并且进入插入模式
