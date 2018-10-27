@@ -122,6 +122,7 @@ set background=dark    " Setting dark mode
 let g:Lf_WorkingDirectoryMode = 'a'      " 设置目录为当前文件所在目录,只对终端下打开文件
 "<C-J>   move the cursor downward in the result window
 "<C-K>   move the cursor upward in the result window
+":leaderfFile 更改目录
 
 " ale配置
 " ale settings
