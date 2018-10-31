@@ -723,4 +723,21 @@ snippet pinfo "author and program informaton in python head" b
 $0
 endsnippet
 
+snippet log "using logging to replace print" b
+# 创建logger实例
+logger = logging.getLogger('log')
+# 设置log级别
+logger.setLevel(logging.${1:DEBUG})
+# 创建handler(处理器)
+handler = logging.StreamHandler()
+# 创建log格式化器,这里有设置了两种，后一种最简单只有输出信息
+# formatter = logging.Formatter('[%(asctime)s] %(name)s:%(levelname)s:\n%(message)s')
+formatter = logging.Formatter('%(message)s')
+# 设置格式化器
+handler.setFormatter(formatter)
+# 为Logger实例增加一个处理器
+logger.addHandler(handler)
+$0
+endsnippet
+
 # vim:ft=snippets:

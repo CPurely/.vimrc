@@ -245,7 +245,7 @@ func! CompileRunGcc()
           exec "w"
           if &filetype == 'python'
                   if search("@profile")
-                          exec "AsyncRun kernprof -l -v %"
+                          exec "AsyncRun -raw kernprof -l -v %"
                           exec "copen"
                           exec "wincmd p"
                   elseif search("set_trace()")
@@ -256,7 +256,6 @@ func! CompileRunGcc()
                           exec "wincmd p"
                   endif
           endif
-
 endfunc
 let $PYTHONUNBUFFERED=1    " 在quickfix中实时显示python输出信息
 " 快速停止运行程序
@@ -324,6 +323,23 @@ fun! TrimWhitespace()
 endfun
 command! TrimWhitespace call TrimWhitespace()
 noremap <Leader>w :call TrimWhitespace()<CR>
+" vim以tab的形式最大化最小化当前窗口
+function! Zoom ()
+        " check if is the zoomed state (tabnumber > 1 && window == 1)
+        if tabpagenr('$') > 1 && tabpagewinnr(tabpagenr(), '$') == 1
+            let l:cur_winview = winsaveview()
+            let l:cur_bufname = bufname('')
+            tabclose
+        
+            " restore the view
+            if l:cur_bufname == bufname('')
+                call winrestview(cur_winview)
+            endif
+        else
+            tab split
+        endif
+    endfunction
+nmap <leader>z :call Zoom()<CR>
 
 " vim命令记录
 " ci'、ci"、ci(、ci[、ci{、ci< - 分别更改这些配对标点符号中的文本内容,并且进入插入模式
