@@ -1,36 +1,36 @@
-"Vundle Section Start
+"Vim-plug Section Start
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'https://github.com/scrooloose/nerdtree.git'
-Plugin 'https://github.com/vim-airline/vim-airline.git'
-Plugin 'https://github.com/vim-airline/vim-airline-themes.git'
-Plugin 'https://github.com/scrooloose/nerdcommenter.git'   " <leader>cc 注释当前行 <leader>cy 注释并复制 <leader>cs 优美的注释 <leader>cu 取消注释<leader>cA在行最后添加注释
-Plugin 'vim-scripts/indentpython.vim'
+call plug#begin('~/.vim/bundle')
+Plug 'https://github.com/scrooloose/nerdtree.git'
+Plug 'https://github.com/vim-airline/vim-airline.git'
+Plug 'https://github.com/vim-airline/vim-airline-themes.git'
+Plug 'https://github.com/scrooloose/nerdcommenter.git'   " <leader>cc 注释当前行 <leader>cy 注释并复制 <leader>cs 优美的注释 <leader>cu 取消注释<leader>cA在行最后添加注释
+Plug 'vim-scripts/indentpython.vim'
 "Plugin 'https://github.com/nathanaelkane/vim-indent-guides.git'
-Plugin 'https://github.com/Yggdroot/indentLine.git'
-Plugin 'https://github.com/skywind3000/asyncrun.vim.git'
-Plugin 'https://github.com/Valloric/YouCompleteMe.git'
-Plugin 'https://github.com/luochen1990/rainbow.git'
-Plugin 'https://github.com/tpope/vim-surround.git'          "cs,ds,ys,yss,ysiw更改和删除和增加surround
-Plugin 'tpope/vim-repeat'    " 使用.重复命令,支持vim-surround
-Plugin 'https://github.com/flazz/vim-colorschemes.git'
-Plugin 'https://github.com/jiangmiao/auto-pairs.git'
-Plugin 'https://github.com/Yggdroot/LeaderF.git'
-Plugin 'https://github.com/w0rp/ale.git'
-Plugin 'https://github.com/sheerun/vim-polyglot.git'    " 语法高亮增强
-Plugin 'majutsushi/tagbar'      " 需要先安装ctags apt-get install ctags
-Plugin 'https://github.com/matze/vim-move.git'
-Plugin 'SirVer/ultisnips'        " Track the engine.
-Plugin 'honza/vim-snippets'      " Snippets are separated from the engine. Add this if you want them:
-Plugin 'wesQ3/vim-windowswap'    " 交换窗口之间的位置,按<leader>ww在当前窗口,然后移动到想到交换位置的窗口再按<leader>ww即可
-Plugin 'terryma/vim-multiple-cursors'  " 多光标操作
+Plug 'https://github.com/Yggdroot/indentLine.git'
+Plug 'https://github.com/skywind3000/asyncrun.vim.git'
+Plug 'https://github.com/Valloric/YouCompleteMe.git'
+Plug 'https://github.com/luochen1990/rainbow.git'
+Plug 'https://github.com/tpope/vim-surround.git'          "cs,ds,ys,yss,ysiw更改和删除和增加surround
+Plug 'tpope/vim-repeat'    " 使用.重复命令,支持vim-surround
+Plug 'https://github.com/flazz/vim-colorschemes.git'
+Plug 'https://github.com/jiangmiao/auto-pairs.git'
+"Plug 'https://github.com/Yggdroot/LeaderF.git'
+Plug 'https://github.com/w0rp/ale.git'
+Plug 'https://github.com/sheerun/vim-polyglot.git'    " 语法高亮增强
+Plug 'majutsushi/tagbar'      " 需要先安装ctags apt-get install ctags
+Plug 'https://github.com/matze/vim-move.git'
+Plug 'SirVer/ultisnips'        " Track the engine.
+Plug 'honza/vim-snippets'      " Snippets are separated from the engine. Add this if you want them:
+Plug 'wesQ3/vim-windowswap'    " 交换窗口之间的位置,按<leader>ww在当前窗口,然后移动到想到交换位置的窗口再按<leader>ww即可
+Plug 'terryma/vim-multiple-cursors'  " 多光标操作
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
+Plug 'junegunn/fzf.vim'
 " ADD YOUR PLUGIN
-call vundle#end()
+call plug#end()
 filetype plugin indent on
-"Vundle Section End
+"Vim-plug Section End
 
 " NERDTTree配置
 " 关闭NERDTree快捷键
@@ -114,18 +114,16 @@ let g:rainbow_active = 1
 
 " vim-colorschemes配置
 colorscheme gruvbox
-" 设置vim为透明,不知道为什么没有效果
 let g:gruvbox_italic=1
 set background=dark    " Setting dark mode
 
 " leaderF配置
-let g:Lf_WorkingDirectoryMode = 'a'      " 设置目录为当前文件所在目录,只对终端下打开文件
+"let g:Lf_WorkingDirectoryMode = 'a'      " 设置目录为当前文件所在目录,只对终端下打开文件
 "<C-J>   move the cursor downward in the result window
 "<C-K>   move the cursor upward in the result window
 ":leaderfFile 更改目录
 
 " ale配置
-" ale settings
 "let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 0
 let g:ale_open_list = 0
@@ -138,9 +136,11 @@ let g:ale_fixers = {
 nmap <silent> <space>k <Plug>(ale_previous_wrap)
 nmap <silent> <space>j <Plug>(ale_next_wrap)
 " 设置python代码检查(需要先pip安装),忽略python E501错误(行太长)
-let b:ale_linters = ['pylint']
+let b:ale_linters = {'python': ['pylint']}
 let g:ale_python_pylint_executable = 'pylint'
-let g:ale_python_pylint_options = '--ignore=E501'
+"let g:ale_python_pylint_args = '--ignore=E501'
+"let g:ale_python_pylint_options = '--ignore=E501'
+"let g:ale_warn_about_trailing_whitespace = 0
 " 避免光标在错误提示处不显示,ubuntu vim的问题,更新vim到8.1就好了
 let g:ale_echo_cursor = 1
 
@@ -206,6 +206,10 @@ let g:multi_cursor_next_key            = '<C-n>'     " 选中下一个字符
 let g:multi_cursor_prev_key            = '<C-p>'     " 返回上一个字符
 let g:multi_cursor_skip_key            = '<C-x>'     " 跳过当前选中, 选中下一个
 let g:multi_cursor_quit_key            = '<Esc>'     " 退出
+
+" FZF配置
+" 快速启动FZF
+nnoremap <silent> <Leader>f :Files<CR>
 
 " 当不编辑主文件时自动退出vim
 autocmd BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(winbufnr(v:val), "&bt"))')) | qa! | endif
@@ -330,7 +334,7 @@ function! Zoom ()
             let l:cur_winview = winsaveview()
             let l:cur_bufname = bufname('')
             tabclose
-        
+
             " restore the view
             if l:cur_bufname == bufname('')
                 call winrestview(cur_winview)
