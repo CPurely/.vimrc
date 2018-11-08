@@ -27,6 +27,7 @@ Plug 'wesQ3/vim-windowswap'    " 交换窗口之间的位置,按<leader>ww在当
 Plug 'terryma/vim-multiple-cursors'  " 多光标操作
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
 Plug 'junegunn/fzf.vim'
+Plug 'mhinz/vim-startify'   " vim起始页插件
 " ADD YOUR PLUGIN
 call plug#end()
 filetype plugin indent on
