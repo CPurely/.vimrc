@@ -212,6 +212,10 @@ let g:multi_cursor_quit_key            = '<Esc>'     " 退出
 " 快速启动FZF
 nnoremap <silent> <Leader>f :Files<CR>
 
+" startify配置
+" 起始页显示的列表长度
+let g:startify_files_number = 12
+
 " 当不编辑主文件时自动退出vim
 autocmd BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(winbufnr(v:val), "&bt"))')) | qa! | endif
 set textwidth=250    "vim自动换行(超过这个数值的行,向其中插入字符时会自动加上换行符)
