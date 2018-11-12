@@ -28,6 +28,9 @@ Plug 'terryma/vim-multiple-cursors'  " 多光标操作
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-startify'   " vim起始页插件
+Plug 'ryanoasis/vim-devicons'    " vim各种图标插件
+"Plug 'airblade/vim-gitgutter'    " git侧边栏
+Plug 'https://github.com/dhruvasagar/vim-table-mode.git'
 " ADD YOUR PLUGIN
 call plug#end()
 filetype plugin indent on
@@ -216,6 +219,11 @@ nnoremap <silent> <Leader>f :Files<CR>
 " 起始页显示的列表长度
 let g:startify_files_number = 12
 
+" table-mode配置
+" <leader>tm启动和关闭table mode,||添加分割线,|添加列,<leader>tt格式化表格
+let g:table_mode_corner = '|'
+let g:table_mode_delimiter = ' '
+
 " 当不编辑主文件时自动退出vim
 autocmd BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(winbufnr(v:val), "&bt"))')) | qa! | endif
 set textwidth=250    "vim自动换行(超过这个数值的行,向其中插入字符时会自动加上换行符)
@@ -226,6 +234,7 @@ set shiftwidth=4    " 设定 >,<缩进的列数
 autocmd FileType tex setlocal spell spelllang=en_us,cjk    " 拼写检查英文忽略中文
 set expandtab       "将tab换成空格
 filetype on         " 开启文件类型侦测
+set encoding=UTF-8  " 设置文件编码
 autocmd BufWritePost $MYVIMRC source $MYVIMRC   " 让配置变更立即生效
 set laststatus=2    " 总是显示状态栏
 "set nowrap          " 禁止代码折行
@@ -239,8 +248,8 @@ syntax on           " 允许用指定语法高亮配色方案替换默认方案
 "set cursorline
 " 记录上一次打开某一文件时的光标位置，并在下次打开同一文件时将光标移动到该位置
 augroup resCur
-  autocmd!
-  autocmd BufReadPost * call setpos(".", getpos("'\""))
+autocmd!
+autocmd BufReadPost * call setpos(".", getpos("'\""))
 augroup END
 " 改变光标的前景色和背景色
 "highlight Cursor guifg=white guibg=black
@@ -251,20 +260,20 @@ set encoding=utf-8    " 使用UTF-8编码
 " 设置运行python程序快捷方式
 nnoremap <F6> :call CompileRunGcc()<cr>
 func! CompileRunGcc()
-          exec "w"
-          if &filetype == 'python'
-                  if search("@profile")
-                          exec "AsyncRun -raw kernprof -l -v %"
-                          exec "copen"
-                          exec "wincmd p"
-                  elseif search("set_trace()")
-                          exec "!python3 %"
-                  else
-                          exec "AsyncRun -raw python3 %"
-                          exec "copen"
-                          exec "wincmd p"
-                  endif
-          endif
+      exec "w"
+      if &filetype == 'python'
+              if search("@profile")
+                      exec "AsyncRun -raw kernprof -l -v %"
+                      exec "copen"
+                      exec "wincmd p"
+              elseif search("set_trace()")
+                      exec "!python3 %"
+              else
+                      exec "AsyncRun -raw python3 %"
+                      exec "copen"
+                      exec "wincmd p"
+              endif
+      endif
 endfunc
 let $PYTHONUNBUFFERED=1    " 在quickfix中实时显示python输出信息
 " 快速停止运行程序
@@ -280,7 +289,7 @@ autocmd cursorhold * set nohlsearch
 "" 快捷禁用搜索高亮
 "nnoremap <F2> :call DisableHighlight()<cr>
 "function! DisableHighlight()
-    "set nohlsearch
+"set nohlsearch
 "endfunc
 " 搜索时忽略大小写
 set ignorecase
@@ -295,13 +304,13 @@ nnoremap ]b :bn<CR>
 nnoremap <leader>q :call QuickfixToggle()<cr>
 let g:quickfix_is_open = 0
 function! QuickfixToggle()
-    if g:quickfix_is_open
-        cclose
-        let g:quickfix_is_open = 0
-    else
-        copen
-        let g:quickfix_is_open = 1
-    endif
+if g:quickfix_is_open
+    cclose
+    let g:quickfix_is_open = 0
+else
+    copen
+    let g:quickfix_is_open = 1
+endif
 endfunction
 " 设置vim删除命令不剪切
 nnoremap x "_x
@@ -315,7 +324,7 @@ vnoremap dd "_dd
 nnoremap <silent>[<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>
 nnoremap <silent>]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 " 快速打开terminal
-nnoremap <leader>t :vertica terminal<cr>
+nnoremap <space>t :vertica terminal<cr>
 " 调整窗口(buffer)尺寸-+5
 nnoremap <space><left> :vertical resize +5<cr>
 nnoremap <space><right> :vertical resize -5<cr>
@@ -326,15 +335,15 @@ hi! Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE
 " vim快速移除文件行尾无用的空格
 fun! TrimWhitespace()
-        let l:save = winsaveview()
-            keeppatterns %s/\s\+$//e
-                call winrestview(l:save)
+    let l:save = winsaveview()
+        keeppatterns %s/\s\+$//e
+            call winrestview(l:save)
 endfun
 command! TrimWhitespace call TrimWhitespace()
 noremap <Leader>w :call TrimWhitespace()<CR>
 " vim以tab的形式最大化最小化当前窗口
 function! Zoom ()
-        " check if is the zoomed state (tabnumber > 1 && window == 1)
+    " check if is the zoomed state (tabnumber > 1 && window == 1)
         if tabpagenr('$') > 1 && tabpagewinnr(tabpagenr(), '$') == 1
             let l:cur_winview = winsaveview()
             let l:cur_bufname = bufname('')
