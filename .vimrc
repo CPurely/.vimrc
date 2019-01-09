@@ -381,3 +381,4 @@ nmap <leader>z :call Zoom()<CR>
 " 命令:ol则是浏览最近打开的文件列表,进去之后使用:e #<[filenumber]打开文件
 " 可视模式下按o可以在选区顶端位置切换
 " <ctrl-o>返回上次光标位置
+" surround插件,右括号不添加空格,左括号添加
